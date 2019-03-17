@@ -51,7 +51,7 @@ public:
     virtual bool scatter(const Ray &incidentRay, const HitRecord &hitRecord, Vector3 &attenuation,
                  Ray &scatteredRay) const {
         Vector3 reflected = reflect(unitVector(incidentRay.direction()), hitRecord.normal);
-        scatteredRay = Ray(hitRecord.position, reflected);
+        scatteredRay = Ray(hitRecord.position, reflected + fuzz * randomInUnitSphere());
         attenuation = this->albedo;
         return (dot(scatteredRay.direction(), hitRecord.normal) > 0);
     }
