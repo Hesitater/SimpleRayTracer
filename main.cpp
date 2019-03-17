@@ -31,13 +31,14 @@ int main() {
     int yLength = 100;
     int sampleCount = 100;
     cout << "P3\n" << xLength << " " << yLength << "\n255\n";
-    Camera camera;
-    Hitable* list[4];
-    list[0] = new Sphere(Vector3(0, 0, -1), 0.5, new Lambertian(Vector3(0.8, 0.3, 0.3)));
+    Camera camera(Vector3(-2, 2, 1), Vector3(0, 0, -1), Vector3(0, 1, 0), 30, float(xLength) / float(yLength));
+    Hitable* list[5];
+    list[0] = new Sphere(Vector3(0, 0, -1), 0.5, new Lambertian(Vector3(0.1, 0.2, 0.5)));
     list[1] = new Sphere(Vector3(0, -100.5, -1), 100, new Lambertian(Vector3(0.8, 0.8, 0.0)));
-    list[2] = new Sphere(Vector3(1, 0, -1), 0.5, new Metal(Vector3(0.8, 0.6, 0.2), 0.3));
-    list[3] = new Sphere(Vector3(-1, 0, -1), 0.5, new Metal(Vector3(0.8, 0.8, 0.8), 1));
-    Hitable *world = new HitableList(list, 4);
+    list[2] = new Sphere(Vector3(1, 0, -1), 0.5, new Metal(Vector3(0.8, 0.6, 0.2)));
+    list[3] = new Sphere(Vector3(-1, 0, -1), 0.5, new Dielectric(1.5));
+    list[4] = new Sphere(Vector3(-1, 0, -1), -0.45, new Dielectric(1.5));
+    Hitable *world = new HitableList(list, 5);
 
     for (int j = yLength - 1; j >= 0; --j) {
         for (int i = 0; i < xLength; ++i) {
